@@ -8,6 +8,12 @@ jobs:
     train-and-deploy:
         runs-on: ubuntu-latest
 
+        env:
+            HF_TOKEN: ${{ secrets.HF_TOKEN }}
+            HF_REPO_DATA: ${{ vars.HF_REPO_DATA }}
+            HF_REPO_MODEL: ${{ vars.HF_REPO_MODEL }}
+            MODEL_FILENAME: ${{ vars.MODEL_FILENAME }}
+
         steps:
 
             - name: Checkout code
@@ -34,9 +40,7 @@ jobs:
               run: |
                 echo "Model training completed"
 
-            - name: Upload model to Hugging Face Hub
-              env:
-                HF_TOKEN: ${{ secrets.HF_TOKEN }}
+            - name: Upload model to Hugging Face Hub              
               run: |
                 python src/upload_model.py
 
