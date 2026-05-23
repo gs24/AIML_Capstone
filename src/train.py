@@ -8,7 +8,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
-from src.preprocess import split_features_target, validate_columns
+from preprocess import split_features_target, validate_columns
 
 
 def load_data():
