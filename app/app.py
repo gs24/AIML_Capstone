@@ -31,7 +31,8 @@ if st.button("Predict"):
     prediction = predict(input_data)
     
     if prediction == 1:
-        st.error(f"Engine Failure May Occur! {prediction}")
+        st.error(f"Engine Failure May Occur!")
     else:
-        st.success("Engines running healthily.")
+        st.success(f"Engines running healthily.")
 
+    
