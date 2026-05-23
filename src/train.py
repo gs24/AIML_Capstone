@@ -11,6 +11,7 @@ import joblib
 from dotenv import load_dotenv
 from datasets import load_dataset
 from xgboost import XGBClassifier
+from huggingface_hub import HfApi
 
 
 def load_data_from_hf():
@@ -85,7 +86,7 @@ def get_models_parameters_grid_for_hyperparameter_tuning(model):
         }
     else:
         raise ValueError("Unsupported model type for hyperparameter tuning.")
-
+    return param_grid
 
 def hyperparameter_tuning(model, X_train, y_train):
     param_grid = get_models_parameters_grid_for_hyperparameter_tuning(model)
@@ -109,6 +110,7 @@ def evaluate_model(model, X_test, y_test):
     recall = recall_score(y_test, y_pred, average='weighted')
     f1 = f1_score(y_test, y_pred, average='weighted')
 
+    print("Model Name: ", model.__class__.__name__)
     print(f"Accuracy: {accuracy:.4f}")
     print(f"Precision: {precision:.4f}")
     print(f"Recall: {recall:.4f}")
@@ -140,6 +142,32 @@ def save_model(model, model_name):
     print("Model saved")
 
 
+def upload_model_to_hf(model_path="models/model.pkl"):
+    load_dotenv()
+
+    token = os.getenv("HF_TOKEN")
+    repo_name = os.getenv("HF_REPO") + "-model"
+
+    api = HfApi()
+
+    # Create repo if not exists
+    api.create_repo(
+        repo_id=repo_name,
+        repo_type="model",
+        exist_ok=True,
+        token=token
+    )
+
+    # Upload model file
+    api.upload_file(
+        path_or_fileobj=model_path,
+        path_in_repo=os.path.basename(model_path),
+        repo_id=repo_name,
+        token=token
+    )
+
+    print(f"Model uploaded to Hugging Face: {repo_name}")
+
 if __name__ == "__main__":
     train_df, test_df = load_data_from_hf()
     X_train, X_test, y_train, y_test = prepare_data_for_model_building(train_df, test_df)
@@ -155,3 +183,4 @@ if __name__ == "__main__":
     final_metrics = final_evaluation(tuned_model, X_test, y_test)
 
     save_model(tuned_model, best_model_name)
+    upload_model_to_hf()

@@ -24,7 +24,8 @@ def load_data():
 def preprocess_data(df):
 
     #Removing duplicates
-    df = df.drop_duplicates()
+    # df = df.drop_duplicates()
+    None
 
     #There are no missing values in the dataset, so we can skip that.
 
