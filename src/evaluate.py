@@ -3,7 +3,7 @@ import joblib
 from datasets import load_dataset
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-from src.preprocess import split_features_target
+from preprocess import split_features_target
 
 
 def load_test():
