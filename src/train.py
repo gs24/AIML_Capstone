@@ -13,7 +13,7 @@ from preprocess import split_features_target, validate_columns
 
 def load_data():
     repo = os.getenv("HF_REPO_DATA")
-
+    print("DEBUG HF_REPO_DATA:", repo)
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
 
