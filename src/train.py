@@ -10,7 +10,8 @@ from xgboost import XGBClassifier
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
-from preprocess import split_features_target, validate_columns
+from preprocess import split_features_target, test_train_split, validate_columns
+from src.data_hf_process import  load_raw_data, upload_processed_data_to_huggingface,get_processed_data_from_huggingface
 
 
 def load_data():
@@ -34,10 +35,18 @@ def build_pipeline(model):
     ])
 
 
-def train_and_select(train_df, test_df):
-    validate_columns(train_df)
-    validate_columns(test_df)
+def preprocess_split_and_upload(data_df):
+    validate_columns(data_df)
 
+    train_df, test_df = test_train_split(data_df)
+
+    train_df.to_csv("data/processed/train.csv", index=False)
+    test_df.to_csv("data/processed/test.csv", index=False)
+
+    upload_processed_data_to_huggingface(repo_id=os.getenv("HF_REPO"), repo_type="dataset")
+
+def train_and_select(data_df):
+    train_df,test_df = get_processed_data_from_huggingface()
     X_train, y_train = split_features_target(train_df)
     X_test, y_test = split_features_target(test_df)
 
@@ -78,8 +87,9 @@ def save_model(model):
 
 
 if __name__ == "__main__":
-    train_df, test_df = load_data()
-    model, X_train, y_train = train_and_select(train_df, test_df)
+    data_df = load_raw_data()
+    preprocess_split_and_upload(data_df)
+    model, X_train, y_train = train_and_select(data_df)
     best_model = tune_model(model, X_train, y_train)
     save_model(best_model)
 
