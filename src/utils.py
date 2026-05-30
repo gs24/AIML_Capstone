@@ -24,11 +24,11 @@ def get_env_variable(var_name):
 def create_hf_repo(repo_id,repo_type):
     api = HfApi()
 
-    data_repo_id = get_repo_id(repo_id, repo_type)
+    # data_repo_id = get_repo_id(repo_id, repo_type)
 
     # Create a new repository on Hugging Face Hub
     api.create_repo(
-        repo_id=data_repo_id,
+        repo_id=repo_id,
         repo_type=repo_type,
         private=False,
         exist_ok=True,

@@ -49,7 +49,7 @@ def preprocess_split_and_upload(data_df):
     train_df.to_csv("data/processed/train.csv", index=False)
     test_df.to_csv("data/processed/test.csv", index=False)
 
-    upload_processed_data_to_huggingface(repo_id=os.getenv("HF_REPO"), repo_type="dataset")
+    upload_processed_data_to_huggingface(repo_id=os.getenv("HF_REPO_DATA"))
 
 def train_and_select(data_df):
     train_df,test_df = get_processed_data_from_huggingface()
