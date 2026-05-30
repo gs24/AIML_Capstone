@@ -7,7 +7,7 @@ from utils import create_hf_repo, get_env_variable, get_repo_id, login_to_huggin
 
 def load_raw_data():
     repo = os.getenv("HF_REPO_DATA")
-    print("DEBUG HF_REPO_DATA:", repo)
+    print("DEBUG in load raw data HF_REPO_DATA: ", repo)
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
      
@@ -23,6 +23,7 @@ def load_raw_data():
 def upload_raw_data_to_huggingface(repo_id, repo_type):
 
     api = HfApi()
+    print("Debug uploading data to huggingface, repo_id:", repo_id)
     create_hf_repo(repo_id, repo_type="dataset")
     data_repo_id = get_repo_id(repo_id, repo_type="dataset")
 
@@ -37,14 +38,14 @@ def upload_raw_data_to_huggingface(repo_id, repo_type):
 def upload_processed_data_to_huggingface(repo_id, repo_type="dataset"):
 
     api = HfApi()
+    print("Debug uploading processed data to huggingface, repo_id:", repo_id)
     create_hf_repo(repo_id, repo_type="dataset")
     # data_repo_id = get_repo_id(repo_id, repo_type="dataset")
 
     api.upload_folder(
         folder_path="data/processed",
         repo_id=repo_id,
-        repo_type="dataset",
-        path_in_repo="processed"
+        repo_type="dataset"
     )
 
 def upload_to_huggingface_hub(file_path, repo_name):
@@ -69,7 +70,7 @@ def get_processed_data_from_huggingface():
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
 
-    dataset = load_dataset(repo, data_dir="processed")
+    dataset = load_dataset(repo)
 
     train_df = dataset["train"].to_pandas()
     test_df = dataset["test"].to_pandas()
