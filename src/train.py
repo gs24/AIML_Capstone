@@ -67,8 +67,12 @@ def train_and_select(data_df):
 
     print("RF F1:", rf_f1)
     print("XGB F1:", xgb_f1)
-
-    best = rf if rf_f1 >= xgb_f1 else xgb
+    if abs(rf_f1 - xgb_f1) < 0.01:
+        print("Performance is almost similar: Selecting Random Forest for simplicity")
+        best = rf
+    else:
+        best = rf if rf_f1 >= xgb_f1 else xgb
+   
 
     if rf_f1 >= xgb_f1:
         print("Selected Model: Random Forest")
@@ -79,6 +83,8 @@ def train_and_select(data_df):
 
     return best, X_train, y_train
 
+#Although XGBoost achieved a slightly higher F1-score, 
+# the difference was negligible. Therefore, Random Forest was selected as the final model due to its simplicity, faster inference, and ease of deployment.
 
 def tune_model(model, X_train, y_train):
     param_grid = {
