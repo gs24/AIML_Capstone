@@ -27,5 +27,5 @@ def predict(input_data: dict):
 
     pred = model.predict(df)
 
-    return pred[0]
+    return pred[0],model.named_steps['model'].__class__.__name__
     
