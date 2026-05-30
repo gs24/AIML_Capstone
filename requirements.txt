@@ -26,3 +26,5 @@ pygments==2.16.1
 
 #app
 streamlit==1.28.0
+
+#missing datasets, matplotlib and seaborn
