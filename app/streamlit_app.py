@@ -29,8 +29,8 @@ if st.button("Predict"):
     }
 
     
-    prediction = predict(input_data)
-    
+    prediction,model_name = predict(input_data)
+    st.write(f"Model Used: {model_name}")
     if prediction == 1:
         st.error(f"Engine Failure May Occur!")
     else:

@@ -64,13 +64,6 @@ def train_and_select(data_df):
         best = rf if rf_f1 >= xgb_f1 else xgb
    
 
-    if rf_f1 >= xgb_f1:
-        print("Selected Model: Random Forest")
-        best = rf
-    else:
-        print("Selected Model: XGBoost")
-        best = xgb
-
     return best, X_train, y_train
 
 #Although XGBoost achieved a slightly higher F1-score, 
