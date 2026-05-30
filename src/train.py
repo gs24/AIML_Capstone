@@ -11,7 +11,7 @@ from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
 from preprocess import split_features_target, test_train_split, validate_columns
-from src.data_hf_process import  load_raw_data, upload_processed_data_to_huggingface,get_processed_data_from_huggingface
+from data_hf_process import  load_raw_data, upload_processed_data_to_huggingface,get_processed_data_from_huggingface
 
 
 def load_data():
