@@ -34,7 +34,7 @@ def upload_raw_data_to_huggingface(repo_id, repo_type):
     )
 
 
-def upload_processed_data_to_huggingface(repo_id, repo_type):
+def upload_processed_data_to_huggingface(repo_id, repo_type="dataset"):
 
     api = HfApi()
     create_hf_repo(repo_id, repo_type="dataset")
