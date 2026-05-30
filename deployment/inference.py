@@ -28,3 +28,4 @@ def predict(input_data: dict):
     pred = model.predict(df)
 
     return pred[0]
+    

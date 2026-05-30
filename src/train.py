@@ -1,5 +1,7 @@
 
 
+
+
 import os
 import joblib
 from datasets import load_dataset
@@ -20,18 +22,6 @@ from data_hf_process import  load_raw_data, upload_processed_data_to_huggingface
 
 login(token=os.getenv("HF_TOKEN"))
 
-# def load_data():
-#     repo = os.getenv("HF_REPO_DATA")
-#     print("DEBUG HF_REPO_DATA:", repo)
-#     if repo is None:
-#         raise ValueError("HF_REPO_DATA not set")
-
-#     dataset = load_dataset(repo)
-
-#     train_df = dataset["train"].to_pandas()
-#     test_df = dataset["test"].to_pandas()
-
-#     return train_df, test_df
 
 
 def build_pipeline(model):
@@ -111,5 +101,8 @@ if __name__ == "__main__":
     model, X_train, y_train = train_and_select(data_df)
     best_model = tune_model(model, X_train, y_train)
     save_model(best_model)
+
+
+
 
 
