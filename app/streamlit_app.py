@@ -36,6 +36,4 @@ if st.button("Predict"):
     else:
         st.success(f"Engines running healthily.")
 
-    
-
-    
+        

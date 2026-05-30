@@ -1,4 +1,5 @@
 
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -43,4 +44,6 @@ def validate_columns(df):
     missing_cols = [col for col in FEATURES if col not in df.columns]
     if missing_cols:
         raise ValueError(f"Missing columns: {missing_cols}")
+
+
 

@@ -1,3 +1,4 @@
+
 import os
 import joblib
 from datasets import load_dataset
@@ -30,7 +31,7 @@ def load_model():
 def evaluate(model, X_test, y_test):
     preds = model.predict(X_test)
 
-    print("\nEvaluation:")
+    print("Evaluation:")
     print("Accuracy:", accuracy_score(y_test, preds))
     print("Precision:", precision_score(y_test, preds))
     print("Recall:", recall_score(y_test, preds))
@@ -41,3 +42,4 @@ if __name__ == "__main__":
     X_test, y_test = load_test()
     model = load_model()
     evaluate(model, X_test, y_test)
+
