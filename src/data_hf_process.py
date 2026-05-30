@@ -70,10 +70,17 @@ def get_processed_data_from_huggingface():
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
 
-    dataset = load_dataset(repo)
+    dataset = load_dataset(
+        "csv",
+        data_files={
+            "train": f"https://huggingface.co/datasets/{repo}/resolve/main/train.csv",
+            "test": f"https://huggingface.co/datasets/{repo}/resolve/main/test.csv"
+        }
+    )
 
     train_df = dataset["train"].to_pandas()
     test_df = dataset["test"].to_pandas()
+
 
 
     return train_df, test_df
