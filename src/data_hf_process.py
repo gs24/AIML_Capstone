@@ -11,7 +11,7 @@ def load_raw_data():
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
     
-    dataset = load_dataset(repo, data_dir="raw")
+    dataset = load_dataset(repo)
 
     df = dataset["train"].to_pandas()
     
