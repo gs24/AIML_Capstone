@@ -12,7 +12,12 @@ def load_test():
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
 
-    dataset = load_dataset(repo, data_dir="processed")
+    dataset = load_dataset(
+        "csv",
+        data_files={
+            "test": f"https://huggingface.co/datasets/{repo}/resolve/main/test.csv"
+        }
+    )
     test_df = dataset["test"].to_pandas()
 
     return split_features_target(test_df)
