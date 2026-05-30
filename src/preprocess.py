@@ -1,3 +1,4 @@
+
 import pandas as pd
 
 TARGET = "Engine Condition"
@@ -22,3 +23,4 @@ def validate_columns(df):
     missing_cols = [col for col in FEATURES if col not in df.columns]
     if missing_cols:
         raise ValueError(f"Missing columns: {missing_cols}")
+

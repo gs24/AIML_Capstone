@@ -1,16 +1,17 @@
+
 import os
 
 import joblib
 import pandas as pd
 from huggingface_hub import hf_hub_download
 
-from src.preprocess import FEATURES, validate_columns
+from preprocess import FEATURES, validate_columns
 
 
 def load_model():
     path = hf_hub_download(
-                repo_id=os.getenv("HF_REPO_MODEL"),
-                filename=os.getenv("MODEL_FILENAME")
+                repo_id='gsri24/engine-maintenance-model',
+                filename='engine_maintenance_model.pkl'
             )
     return joblib.load(path)
 
