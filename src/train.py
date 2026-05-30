@@ -10,9 +10,15 @@ from xgboost import XGBClassifier
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
+from huggingface_hub import login
+import os
+
+
+
 from preprocess import split_features_target, test_train_split, validate_columns
 from data_hf_process import  load_raw_data, upload_processed_data_to_huggingface,get_processed_data_from_huggingface
 
+login(token=os.getenv("HF_TOKEN"))
 
 # def load_data():
 #     repo = os.getenv("HF_REPO_DATA")
