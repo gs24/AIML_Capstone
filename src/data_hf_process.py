@@ -38,11 +38,11 @@ def upload_processed_data_to_huggingface(repo_id, repo_type):
 
     api = HfApi()
     create_hf_repo(repo_id, repo_type="dataset")
-    data_repo_id = get_repo_id(repo_id, repo_type="dataset")
+    # data_repo_id = get_repo_id(repo_id, repo_type="dataset")
 
     api.upload_folder(
         folder_path="data/processed",
-        repo_id=data_repo_id,
+        repo_id=repo_id,
         repo_type="dataset",
         path_in_repo="processed"
     )
