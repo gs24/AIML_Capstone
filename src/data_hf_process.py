@@ -10,8 +10,11 @@ def load_raw_data():
     print("DEBUG HF_REPO_DATA:", repo)
     if repo is None:
         raise ValueError("HF_REPO_DATA not set")
-    
-    dataset = load_dataset(repo)
+     
+    dataset = load_dataset("csv",
+        data_files={
+            "train": f"https://huggingface.co/datasets/{repo}/resolve/main/raw/engine_data.csv"
+        })
 
     df = dataset["train"].to_pandas()
     
